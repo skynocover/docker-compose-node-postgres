@@ -4,15 +4,19 @@ import { Client } from "pg";
 const PORT = process.env.PORT || 3000;
 
 const client = new Client({
-  password: "postgres",
-  user: "postgres",
-  host: "postgres",
+  user: "admin",
+  password: "123456",
+  host: "srv-captain--temp-postgres-db",
+  database: "temp-db",
 });
 
 const app = express();
 
 app.get("/ping", async (req, res) => {
-  const database = await client.query("SELECT 1 + 1").then(() => "up").catch(() => "down");
+  const database = await client
+    .query("SELECT 1 + 1")
+    .then(() => "up")
+    .catch(() => "down");
 
   res.send({
     environment: process.env.NODE_ENV,
